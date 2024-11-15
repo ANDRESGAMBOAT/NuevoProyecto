@@ -1,22 +1,37 @@
-
-
-
-
-
-
-
 <ion-content class="ion-padding">
-      <ion-img src="assets/images/login.svg"></ion-img>
+  <ion-img src="assets/images/login.svg"></ion-img>
 
-      <ion-item class="ion-margin-top">
-        <ion-input label="Usuario:" labelPlacement="floating" placeholder="Nombre del usuario"></ion-input>
-      </ion-item>
+  <!-- Formulario reactivo -->
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    
+    <!-- Correo electrónico -->
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input 
+        formControlName="email" 
+        type="email" 
+        placeholder="Introduce tu correo electrónico">
+      </ion-input>
+    </ion-item>
 
-      <ion-item class="ion-margin-top">
-        <ion-input label="Contraseña:" labelPlacement="floating" placeholder="Ingrese su contraseña"></ion-input>
-      </ion-item>
+    <!-- Contraseña -->
+    <ion-item class="ion-margin-top">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input 
+        formControlName="password" 
+        type="password" 
+        placeholder="Introduce tu contraseña">
+      </ion-input>
+    </ion-item>
 
-      
+    <!-- Botón de Login -->
+    <ion-button 
+      class="ion-margin-top" 
+      expand="block" 
+      type="submit" 
+      [disabled]="loginForm.invalid">
+      Ingresar
+    </ion-button>
 
-      <ion-button class="ion-margin-top" expand="block">Ingresar</ion-button>
+  </form>
 </ion-content>
