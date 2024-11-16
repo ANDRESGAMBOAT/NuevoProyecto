@@ -14,4 +14,20 @@
   .fc-daygrid-day:hover {
     background-color: #e0f0ff;  /* Un color más claro al pasar el mouse */
   }
+  /* Estilos para mejorar la apariencia de los eventos */
+.fc-event {
+    font-size: 14px; /* Ajustar el tamaño del texto */
+    font-weight: bold; /* Asegurar que el texto sea legible */
+    color: #ffffff; /* Color de texto */
+  }
+  
+  .fc-event-time {
+    font-size: 12px; /* Ajustar el tamaño de la hora */
+    font-weight: normal; /* No tan grueso como el título */
+  }
+  
+  .fc-event-title {
+    font-size: 16px; /* Ajustar el tamaño del título */
+    font-weight: bold; /* Asegurar que el título esté destacado */
+  }
   
