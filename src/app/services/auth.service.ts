@@ -1,69 +1,73 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor() {}
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
-
-  // Registrar un nuevo usuario con correo electrónico y contraseña
+  // Registrar un nuevo usuario
   register(email: string, password: string, username: string): Observable<any> {
     return new Observable((observer) => {
-      this.afAuth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          if (user) {
-            // Aquí puedes guardar el username en Firestore u otra base de datos
-            user.updateProfile({
-              displayName: username
-            }).then(() => {
-              observer.next(user);  // Emitir usuario registrado
-              observer.complete();
-            }).catch(error => {
-              observer.error(error);  // En caso de error al actualizar el perfil
-            });
-          }
-        })
-        .catch((error) => {
-          observer.error(error);  // Error al crear el usuario
-        });
+      const users = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+      // Verificar si el correo ya está registrado
+      if (users.some((user: any) => user.email === email)) {
+        observer.error('El correo ya está registrado.');
+        return;
+      }
+
+      const newUser = { email, password, username };
+
+      // Guardar usuario en localStorage
+      users.push(newUser);
+      localStorage.setItem('usuarios', JSON.stringify(users));
+
+      observer.next(newUser);
+      observer.complete();
     });
   }
 
   // Iniciar sesión
   login(email: string, password: string): Observable<any> {
     return new Observable((observer) => {
-      this.afAuth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          observer.next(userCredential.user);  // Emitir usuario logueado
-          observer.complete();
-        })
-        .catch((error) => {
-          observer.error(error);  // Error al iniciar sesión
-        });
+      const users = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+      // Buscar usuario
+      const user = users.find(
+        (user: any) => user.email === email && user.password === password
+      );
+
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user)); // Guardar usuario logueado
+        observer.next(user);
+        observer.complete();
+      } else {
+        observer.error('Credenciales incorrectas.');
+      }
+    });
+  }
+
+  // Obtener el usuario logueado
+  getUser(): Observable<any> {
+    return new Observable((observer) => {
+      const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (user) {
+        observer.next(user);
+        observer.complete();
+      } else {
+        observer.error('No hay usuario logueado.');
+      }
     });
   }
 
   // Cerrar sesión
   logout(): Observable<any> {
     return new Observable((observer) => {
-      this.afAuth.signOut()
-        .then(() => {
-          observer.next(null);
-          observer.complete();
-        })
-        .catch((error) => {
-          observer.error(error);
-        });
+      localStorage.removeItem('currentUser');
+      observer.next(null);
+      observer.complete();
     });
-  }
-
-  // Obtener el estado de autenticación actual
-  getUser(): Observable<any> {
-    return this.afAuth.authState;
   }
 }

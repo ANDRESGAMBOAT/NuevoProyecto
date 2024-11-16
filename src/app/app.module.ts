@@ -3,32 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
-
-// Firebase 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-
-// Formularios
-import { FormsModule } from '@angular/forms';  // Si estás usando ngModel
-import { ReactiveFormsModule } from '@angular/forms';  // Si estás usando formularios reactivos
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importar formularios
+import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule para peticiones HTTP
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent], // Declarar el componente principal
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    // Configurar Firebase con la configuración
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,   // Para autenticación
-    AngularFirestoreModule,  // Para Firestore
-    AngularFireStorageModule, // Para almacenamiento
-    FormsModule,  // Para usar ngModel en formularios
-    ReactiveFormsModule,  // Si estás usando formularios reactivos
+    FullCalendarModule, // Importar el módulo de FullCalendar
+    FormsModule, // Usar ngModel en formularios
+    ReactiveFormsModule, // Usar formularios reactivos
+    HttpClientModule, // Habilitar peticiones HTTP
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] // El componente principal se usa como el bootstrap
 })
 export class AppModule {}

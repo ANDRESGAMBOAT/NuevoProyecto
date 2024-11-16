@@ -1,0 +1,17 @@
+/* Resaltar el día seleccionado en el calendario */
+.selected-day {
+    background-color: #007bff !important; /* Color de fondo personalizado */
+    color: white !important; /* Cambiar color del texto */
+    font-weight: bold; /* Resaltar el texto */
+    border-radius: 50%; /* Hacerlo redondo */
+  }
+  
+  /* Esto asegura que las celdas de los días tengan un cursor tipo pointer */
+  .fc-daygrid-day {
+    cursor: pointer;
+  }
+  
+  .fc-daygrid-day:hover {
+    background-color: #e0f0ff;  /* Un color más claro al pasar el mouse */
+  }
+  

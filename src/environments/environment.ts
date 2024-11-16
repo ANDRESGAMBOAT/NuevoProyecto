@@ -8,13 +8,14 @@ export const environment = {
   firebaseConfig: {
     apiKey: "AIzaSyA15RDABrPAeov_T4AExKjomKV6D_YdZjA",
     authDomain: "l-barbero.firebaseapp.com",
+    databaseURL: "https://l-barbero-default-rtdb.firebaseio.com",
     projectId: "l-barbero",
     storageBucket: "l-barbero.firebasestorage.app",
     messagingSenderId: "138645813562",
-    appId: "1:138645813562:web:2f354b2898f6f6aa8b3803",
-    measurementId: "G-W3S3SM9GEL"
+    appId: "1:138645813562:web:dc762c6dddadf47d8b3803",
+    measurementId: "G-3R4BQKN120"
   }
-};
+  };
 
 
 /*

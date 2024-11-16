@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage {
-
   email: string = '';
   password: string = '';
   username: string = '';
@@ -18,11 +17,12 @@ export class RegistroPage {
   onRegister() {
     this.authService.register(this.email, this.password, this.username).subscribe(
       (user) => {
-        console.log('Usuario registrado exitosamente', user);
-        this.router.navigate(['/login']); // Redirigir a la página principal
+        console.log('Usuario registrado exitosamente:', user);
+        localStorage.setItem('currentUser', JSON.stringify(user)); // Guardar usuario logueado
+        this.router.navigate(['/login']); // Redirigir a la página de login
       },
       (error) => {
-        console.error('Error al registrar usuario', error);
+        console.error('Error al registrar usuario:', error);
       }
     );
   }
