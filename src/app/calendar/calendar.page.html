@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Calendario de Citas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Calendario -->
+  <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+
+  <!-- Formulario para agregar una cita -->
+  <div *ngIf="showForm">
+    <form (ngSubmit)="addAppointment()">
+      <ion-item>
+        <ion-label position="floating">Hora de la cita</ion-label>
+        <ion-input type="time" [(ngModel)]="appointmentTime" name="appointmentTime" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción de la cita</ion-label>
+        <ion-input type="text" [(ngModel)]="appointmentDescription" name="appointmentDescription" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Barbero</ion-label>
+        <ion-select [(ngModel)]="selectedBarber" name="barber" required>
+          <ion-select-option *ngFor="let barber of barbers" [value]="barber">{{ barber }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Fecha seleccionada en formato numérico -->
+      <ion-item>
+        <ion-label>Fecha seleccionada: {{ selectedDate | date: 'dd/MM/yyyy' }}</ion-label>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" [disabled]="!appointmentTime || !appointmentDescription || !selectedBarber">
+        Agregar Cita
+      </ion-button>
+
+      <ion-button expand="full" color="light" (click)="cancelAppointment()">
+        Cancelar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
